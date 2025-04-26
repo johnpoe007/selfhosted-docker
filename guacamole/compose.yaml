@@ -1,0 +1,52 @@
+services:
+  db:
+    image: mariadb
+    restart: unless-stopped
+    container_name: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpw
+      - MYSQL_DATABASE=guacamole_db
+      - MYSQL_USER=guacamole_user
+      - MYSQL_PASSWORD=guacamolepw
+    volumes:
+      - /opt/container/mariadb:/var/lib/mysql
+    ports:
+      - 3306:3306
+    hostname: mariadb
+    networks:
+      - intranet
+  guacd:
+    image: guacamole/guacd
+    container_name: guacd
+    hostname: guacd
+    restart: always
+    volumes:
+      - /opt/container/guacamole/guacd:/etc/guacamole
+    ports:
+      - 4822:4822
+    networks:
+      - intranet
+  guacamole:
+    image: guacamole/guacamole
+    container_name: guacamole
+    hostname: guacamole
+    restart: always
+    volumes:
+      - /opt/container/guacamole/guacamole:/etc/guacamole
+    ports:
+      - 8000:8080
+    environment:
+      - GUACD_HOSTNAME=guacd
+      - GUACD_PORT=4822
+      - GUACAMOLE_HOME=/etc/guacamole
+      - MYSQL_HOSTNAME=mariadb
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=guacamole_db
+      - MYSQL_USER=guacamole_user
+      - MYSQL_PASSWORD=guacamolepw
+    networks:
+      - intranet
+networks:
+  intranet:
+    external:
+      name: intranet

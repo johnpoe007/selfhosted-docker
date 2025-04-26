@@ -1,0 +1,18 @@
+services:
+  ollama:
+    image: ollama/ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
+    ports:
+      - 11434:11434/tcp
+    volumes:
+      - /var/opt/data/ollama/ollama:/root/.ollama
+    devices:
+      - /dev/dri
+networks: {}
