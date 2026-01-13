@@ -12,8 +12,8 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /home/rocks/Docker/config/freshrss/data:/var/www/FreshRSS/data
-      - /home/rocks/Docker/config/freshrss/extensions:/var/www/FreshRSS/extensions
+      - /config/data:/var/www/FreshRSS/data
+      - /config/extensions:/var/www/FreshRSS/extensions
     container_name: freshrss
     image: lscr.io/linuxserver/freshrss:latest
   fivefilters-full-text-rss:
