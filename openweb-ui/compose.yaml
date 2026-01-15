@@ -9,5 +9,9 @@ services:
       - /var/opt/data/ollama/webui:/app/backend/data
     restart: unless-stopped
     image: ghcr.io/open-webui/open-webui:latest
-    network_mode: host
-networks: {}
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true

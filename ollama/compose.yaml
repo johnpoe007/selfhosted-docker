@@ -15,4 +15,9 @@ services:
       - /var/opt/data/ollama/ollama:/root/.ollama
     devices:
       - /dev/dri
-networks: {}
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true
