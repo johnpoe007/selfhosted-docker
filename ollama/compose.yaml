@@ -1,5 +1,6 @@
 services:
   ollama:
+    network_mode: host
     image: ollama/ollama
     deploy:
       resources:
